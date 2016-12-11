@@ -1,0 +1,86 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet author="mehmetsinan.sahin" id="HIBERNATE_SEQUENCE">
+	    <createSequence
+	            cycle="false"
+	            incrementBy="1"
+	            schemaName="public"
+	            sequenceName="HIBERNATE_SEQUENCE"
+	            startValue="1"/>
+	</changeSet>	
+	
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-2">
+		<createTable tableName="members">
+			<column name="id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-3">
+		<createTable tableName="members_teams">
+			<column name="members_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="teams_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-4">
+		<createTable tableName="organizations">
+			<column name="id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-5">
+		<createTable tableName="teams">
+			<column name="id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="VARCHAR(255)" />
+			<column name="rating" type="INT" />
+			<column name="organization_id" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-6">
+		<addPrimaryKey columnNames="id" constraintName="PRIMARY6" tableName="members" />
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-7">
+		<addPrimaryKey columnNames="members_id, teams_id" constraintName="PRIMARY7" tableName="members_teams" />
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-8">
+		<addPrimaryKey columnNames="id" constraintName="PRIMARY8" tableName="organizations" />
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-9">
+		<addPrimaryKey columnNames="id" constraintName="PRIMARY9" tableName="teams" />
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-10">
+		<createIndex indexName="FK5i52bhmm0nbq6lrbur63anlmc" tableName="teams">
+			<column name="organization_id" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-11">
+		<createIndex indexName="FKltwgxx90mecmtevf8038t64sh" tableName="members_teams">
+			<column name="teams_id" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-12">
+		<addForeignKeyConstraint baseColumnNames="organization_id" baseTableName="teams" constraintName="FK5i52bhmm0nbq6lrbur63anlmc" deferrable="false" initiallyDeferred="false"
+			onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="organizations" />
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-13">
+		<addForeignKeyConstraint baseColumnNames="teams_id" baseTableName="members_teams" constraintName="FKltwgxx90mecmtevf8038t64sh" deferrable="false" initiallyDeferred="false"
+			onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="teams" />
+	</changeSet>
+	<changeSet author="mehmetsinan.sahin" id="1481228428151-14">
+		<addForeignKeyConstraint baseColumnNames="members_id" baseTableName="members_teams" constraintName="FKohjo8eillw1g76rdbh6j7c2oo" deferrable="false" initiallyDeferred="false"
+			onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="members" />
+	</changeSet>
+		
+</databaseChangeLog>

@@ -1,0 +1,57 @@
+<html xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page">
+
+<jsp:directive.attribute name="title" required="true" rtexprvalue="true" description="Title for the page" />
+
+<head>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<title><c:out value="Ignite Test Assigment :: ${title}" /></title>
+	<c:set scope="application" var="contextPath" value="${pageContext.request.contextPath}" />
+	
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="" />
+    <meta name="author" content="Mehmet Sinan Sahin" />
+    <link rel="icon" href="${contextPath}/favicon.ico" />
+
+    <!-- Bootstrap css, core CSS -->
+    <link href="${contextPath}/resources/bootstrap/distr/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="${contextPath}/resources/bootstrap/bootstrap-rating.css" rel="stylesheet" />
+    <link href="${contextPath}/resources/bootstrap/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="${contextPath}/resources/bootstrap/assests/css/ie10-viewport-bug-workaround.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="${contextPath}/resources/ignite.css" rel="stylesheet" />
+	<jsp:include page="/WEB-INF/layout/jsfiles.jsp"></jsp:include>
+</head>
+
+<body>
+	<!-- upper menu -->
+	<jsp:include page="/WEB-INF/layout/header.jsp" />
+
+    <!-- Fixed navbar -->
+
+	<c:if test="${empty success}">
+		<c:set scope="request" value="45F960" var="messageColor"></c:set>
+	</c:if>
+	<c:if test="${not empty success and success == false}">
+		<c:set scope="request" value="red" var="messageColor"></c:set>
+	</c:if>
+	
+    <div class="container">
+    	<p style='font-weight: bold; color:${messageColor}'>${message}</p>
+ 		<jsp:doBody />
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+		
+</body>
+</html>
