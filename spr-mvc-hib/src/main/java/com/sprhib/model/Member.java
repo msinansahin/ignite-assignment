@@ -1,14 +1,16 @@
 package com.sprhib.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,8 +23,11 @@ public class Member extends AModel {
 
 	public static final Member EMPTY = new Member();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	private Set<Team> teams;
+	
+	@Transient
+	private List<String> teamIds;
 
 	@NotNull
 	@Size (min=5, max=250)
@@ -91,6 +96,17 @@ public class Member extends AModel {
 		}
 		
 		return super.equals(obj);
+	}
+
+	public List<String> getTeamIds() {
+		if (teamIds == null) {
+			teamIds = new ArrayList<>();
+		}
+		return teamIds;
+	}
+
+	public void setTeamIds(List<String> teamIds) {
+		this.teamIds = teamIds;
 	}
 	
 }

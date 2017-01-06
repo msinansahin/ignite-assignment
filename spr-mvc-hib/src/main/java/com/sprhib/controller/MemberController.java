@@ -54,6 +54,7 @@ public class MemberController extends AController {
 		if (bindingResult.hasErrors()) {
 			return MEMBER_ADD_FORM;
 		}
+		member.getTeamIds().forEach(n -> member.getTeams().add(teamService.getTeam(Integer.parseInt(n))));
 		memberService.addMember(member);
 		String message = getMessage("msg.successful.add", getMessage("member"));
 		modelMap.addAttribute("message", message);
@@ -69,7 +70,9 @@ public class MemberController extends AController {
 	
 	@GetMapping (value="/edit/{id}")
 	public String editMemberPage(@PathVariable Integer id, ModelMap modelMap) {
-		modelMap.addAttribute("member", memberService.getMember(id));
+		Member member = memberService.getMember(id);
+		member.getTeams().forEach(n -> member.getTeamIds().add(n.getId().toString()));
+		modelMap.addAttribute("member", member);
 		addPageAttributesOfEdit(modelMap);
 		addTeamListToModel(modelMap);
 		return MEMBER_EDIT_FORM;
@@ -84,6 +87,8 @@ public class MemberController extends AController {
 			addTeamListToModel(modelMap);
 			return MEMBER_EDIT_FORM;
 		}
+		member.getTeams().clear();
+		member.getTeamIds().forEach(n -> member.getTeams().add(teamService.getTeam(Integer.parseInt(n))));
 		memberService.updateMember(member);
 		String message = getMessage("msg.successful.edit", getMessage("member"));
 		modelMap.addAttribute("message", message);

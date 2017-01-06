@@ -20,7 +20,7 @@
 		</div>
 		<div class="form-group">
 			<label for="teams"><spring:message code="teams"></spring:message></label> 
-			<form:select id="teams" cssClass="form-control" path="teams" 
+			<form:select id="teams" cssClass="form-control" path="teamIds" 
 				items="${teamList}" itemLabel="name" itemValue="id" />
 			<form:errors path="teams" cssClass="help-inline" />
 			
